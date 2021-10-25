@@ -1,0 +1,12 @@
+/* Set egress port and next hop according to port's MAC address */
+table_set_default MyIngress.ipv4_forwarding drop
+table_add MyIngress.ipv4_forwarding MyIngress.set_egress 10.0.0.0/24 => 1 c2:e8:81:19:70:3e 
+table_add MyIngress.ipv4_forwarding MyIngress.set_egress 10.0.0.0/8 => 2 4a:c4:1b:93:a5:5e
+table_add MyIngress.ipv4_forwarding MyIngress.set_egress 10.0.0.0/16 => 3 66:ec:cc:42:e3:48  
+table_set_default MyIngress.ipv6_forwarding drop
+table_add MyIngress.ipv6_forwarding MyIngress.set_egress 2001::/16 => 1 c2:e8:81:19:70:3e 
+table_add MyIngress.ipv6_forwarding MyIngress.set_egress 2001:4860:4860::/48 => 2 4a:c4:1b:93:a5:5e
+table_add MyIngress.ipv6_forwarding MyIngress.set_egress 2001:610:158:960::/64 => 3 66:ec:cc:42:e3:48  
+
+
+

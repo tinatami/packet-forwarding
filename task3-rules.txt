@@ -1,0 +1,20 @@
+table_set_default MyIngress.ipv4_forwarding drop
+table_add MyIngress.ipv4_forwarding MyIngress.set_egress 10.0.0.0/24 => 1
+table_add MyIngress.ipv4_forwarding MyIngress.set_egress 10.0.0.0/8 => 2
+table_add MyIngress.ipv4_forwarding MyIngress.set_egress 10.0.0.0/16 => 3
+table_set_default MyIngress.ipv6_forwarding drop
+table_add MyIngress.ipv6_forwarding MyIngress.set_egress 2001::/16 => 1
+table_add MyIngress.ipv6_forwarding MyIngress.set_egress 2001:4860:4860::/48 => 2
+table_add MyIngress.ipv6_forwarding MyIngress.set_egress 2001:610:158:960::/64 => 3
+
+/* If udp dst port matches port 69 exact, drop */
+table_add MyEgress.tcp_filter MyEgress.drop 23 => 
+
+/* If tcp dst port matches port 23 exact, drop */
+table_add MyEgress.udp_filter MyEgress.drop 69 => 
+
+/* Doesn't work, but do a ternary match to check if first bit is set to 1 */
+/* Use a mask to do this. If it matches, drop */
+/* Not sure how to set the mask as we want to check individual bits and not */
+/* entire mac addresses */
+// table_add check_ig_bit MyEgress.drop 01:00:00:00:00:00&&&01:00:00:00:00:00 =>

@@ -1,0 +1,4 @@
+table_set_default MyIngress.ipv6_forwarding drop
+table_add MyIngress.ipv6_forwarding MyIngress.set_egress 2001::/16 => 1
+table_add MyIngress.ipv6_forwarding MyIngress.set_egress 2001:4860:4860::/48 => 2
+table_add MyIngress.ipv6_forwarding MyIngress.set_egress 2001:610:158:960::/64 => 3

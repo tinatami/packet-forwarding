@@ -1,0 +1,4 @@
+table_set_default MyIngress.ipv4_forwarding drop
+table_add MyIngress.ipv4_forwarding MyIngress.set_egress 10.0.0.0/24 => 1
+table_add MyIngress.ipv4_forwarding MyIngress.set_egress 10.0.0.0/8 => 2
+table_add MyIngress.ipv4_forwarding MyIngress.set_egress 10.0.0.0/16 => 3
